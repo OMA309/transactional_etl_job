@@ -1,0 +1,9 @@
+*.terraform*
+*.tfstate*
+*terraform.tfstate*
+secure
+minikube-*
+config
+logs
+.vscode 
+test.py
