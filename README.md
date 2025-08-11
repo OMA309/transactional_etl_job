@@ -29,7 +29,7 @@ The pipeline:
 ```plaintext
 .
 ├── dags/
-│   └── b2c_dags.py         # Airflow DAG definition
+│   └── b2c_dags.py               # Airflow DAG definition
 │   └── b2c_trans_data.py         # Python script to generate synthetic data
 ├── terraform/
 │   ├── main.tf                   # AWS resources definition
@@ -41,18 +41,10 @@ The pipeline:
 ├── Dockerfile                    # Custom Airflow image
 ├── docker-compose.yaml           # Airflow multi-service deployment
 ├── requirements.txt              # Python dependencies
+
+
+
+
+
 └── README.md
 
-flowchart TD
-    subgraph AWS_Cloud[AWS Cloud]
-        subgraph VPC[VPC]
-            EC2_Airflow[Airflow on Docker]
-            S3_Bucket[(S3 Bucket: b2c-transactional-records)]
-            S3_TF[(S3 Bucket: b2c-tranx-tfstate)]
-            Redshift[Amazon Redshift Cluster]
-        end
-    end
-
-    EC2_Airflow -->|Generate Data| S3_Bucket
-    S3_Bucket -->|COPY Command| Redshift
-    EC2_Airflow -.->|Terraform State| S3_TF
